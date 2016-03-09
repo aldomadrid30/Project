@@ -1,0 +1,34 @@
+Introduction: 
+	The winning numbers of the lottery are expected to be completely random. If this is the case there is no way to predict them. However, if there is a correlation between the numbers that are drawn and the date that those numbers are drawn then there would be a way to predict them. Also, if there is a way to predict, to a certain extent, the numbers that will be drawn in the future from the information of the numbers that have been drawn in the past then there is a chance to have an advantage over other players of the lottery. This experiment will be focusing on the numbers that tend to be drawn more often than other numbers in Powerball lottery draws. The experiment will be analyzing the data of drawings that happened between the years 2010 to 2015. In October 7, 2015 the rules of the Powerball changed and more numbers were added to each drawing. The experiment will also only focus on the drawing of the “Five Winners,” that is the numbers other than the power ball. The reason for this is that the numbers in the power balls is different than the numbers in the “Five Winners.” Therefore, an attempt to predict the “next” lottery number drawing will not be made. However, an attempt at replicating the data gathered from the “Five Winners” between the years 2010 and 2015 will be made with the program R. Thus, the results of this experiment can be used as a stepping stone towards a precise and accurate simulation and prediction of the “Five Winners.”  
+Procedure:
+Obtaining the winning numbers of the Powerball: 
+1.	The data set that was used for this experiment can be acquired at Data.gov. 
+2.	This data set contains the winning numbers from 2010 to 2016 draws, however, only the draws up to the date of October 7, 2015 were used. 
+Analyzing the winning numbers of the Powerball: 
+1.	The first step towards analyzing the data was to place it into data frame for easy access and for easy analysis.   
+2.	Producing a strip chart in R provided useful information about the data. 
+It can be seen that the data for each drawing was previously ordered, with “Draw 5” having the highest numbers for each draw. “Draw 6” represents the Powerball since it seems to have a uniform distribution between the numbers 1 through 39. Although the data seems to be pre-ordered, this chart shows that the first five draws tend to include as many low numbers as they have high numbers. In other words, the data of these draws seems to be uniform.  
+3.	Producing a plot of this list of number further shows the insights about the distribution of these numbers. Since the numbers were placed in order they had to be randomized with R before plotting. 
+To learn about the distribution of these numbers a histogram was produced.
+To make sure that the histogram is showing correct information a plot of frequencies was made.
+To validate our findings, a table of the data was produced. 
+Using table() function. 
+Reproducing the data: 
+1.	To randomly generate data to resemble that of the lottery winning numbers the probabilities of each number were first calculated using the following formula: 
+
+Probability = (Frequency) / (Total number of draws). 
+
+This formula was then applied to each winning number. 
+With these probabilities, 591 draws of 5 numbers were simulated using the sample() function in R. The results were as follows:
+Explaining the results: 
+	Even though the results of the draws of the lottery numbers are expected to be completely random, they are not. The results had some tendencies. By taking a look at a table of frequencies, one can spot those numbers that tend to be drawn more often than others: 
+As it can be seen, 39 has been drawn 61 times while 15 only 40 times. 
+	Simulating the draws can provide us with some insights that the actual data cannot. We can simulate many draws to learn about the numbers that tend to appear more often. However, to take advantage of these insights though, the data produced by the simulation has to first be considered an accurate representation of the actual data. Taking a look at a couple of analyzes of both data can help us make this decision. 
+1.	Plotting the cumulative distribution function for both sets of data (function ecdf() in R was used).
+2.	Finally, the fairness of the simulation was analyzed. It is known that the lottery is considered a fair game, otherwise the government wouldn’t allow it continue. The fairness of both games was tested with a Chi-squared test for fairness. Here are the results. 
+
+Chi-squared Test Results for Actual Lottery Winning Numbers
+A plot of the frequencies can tell us a bit more about the numbers that tend to come up the most. In this plot it can be seen that the high numbers tend to come up, significantly, more than the lower numbers. This is a finding to consider. 
+Conclusion: 
+	Predicting the next outcome from a roll of a die is easy. To be right about the outcome is difficult, however, especially if the die is a fair die. An advantage over predicting the outcome of the die roll can be obtained only if the die is an unfair die and the numbers that tend to come up the most are known. The same applies to the lottery winning numbers. The outcomes might be many but if we know that certain numbers tend to appear more often than others than our chances of predicting the next outcome improves. In this experiment it was noted that higher numbers tend to appear more often than lower numbers in our simulation. This information can certainly be useful. However, the rules of the Powerball have recently changed. This information can only support the idea that the numbers draws in the lottery have some tendencies and that these tendencies can be found using data analysis.  
+
