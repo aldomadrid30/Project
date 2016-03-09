@@ -1,0 +1,87 @@
+
+##########Code
+#Reading and transforming the data
+
+lottoNums <- read.csv('E:/Documents/R analysis/LT.csv')
+lottoNums <- lottoNums$Winning.Numbers
+lottoNums <- as.vector(lottoNums)
+lottoNums <- strsplit(lottoNums, " ")
+lottoNums <- unlist(lottoNums)
+lottoNums <- as.numeric(lottoNums)
+drawNames <- c("Draw 1", "Draw 2", "Draw 3", "Draw 4", "Draw 5", "Draw 6")
+list.lottoNums <- split(lottoNums, drawNames)
+df.lottoNums <- as.data.frame(list.lottoNums)
+
+
+#analyzing the data
+
+#separating draws
+first5Draws <- c("Draw.1", "Draw.2", "Draw.3", "Draw.4", "Draw.5")
+fDraws <- df.lottoNums[first5Draws]
+draw1 <- fDraws[["Draw.1"]]
+draw2 <- fDraws[["Draw.2"]]
+draw3 <- fDraws[["Draw.3"]]
+draw4 <- fDraws[["Draw.4"]]
+draw5 <- fDraws[["Draw.5"]]
+
+#creating training data
+tDraw1 <- draw1[42:632] #powerlotto rules changed on October 7, 2015
+tDraw2 <- draw2[42:632]
+tDraw3 <- draw3[42:632]
+tDraw4 <- draw4[42:632]
+tDraw5 <- draw5[42:632]
+
+#putting all the data together in a list
+tDraws <- append(tDraw1, tDraw2)
+tDraws <- append(tDraws, tDraw3)
+tDraws <- append(tDraws, tDraw4)
+tDraws <- append(tDraws, tDraw5)
+
+#creating a plot and a histogram with the data
+plot(tDraws)
+hist(tDraws, breaks = 59)
+
+
+#creating sample data with corresponding probabilities
+#obtaining frequencies
+library(plyr)                      #loading library "plyr" to make use of count()
+tDrawTable <- count(tDraws)
+tDrawFreq <- tDrawTable$freq
+tDrawNums <- tDrawTable$x
+
+#obtaining probabilities
+tDrawProb = tDrawFreq/sum(tDrawFreq)           #sum(tDrawFreq) is the number of draws
+sum(tDrawProb)                                 #making sure all probabilities add up to one
+
+#ploting probabilities
+xRange <- seq(1, 59, by = 1)
+plot(xRange, tDrawProb, main = "Plot of Probabilities", xlab = "Draw Numbers", ylab = "Probabilities")
+
+#create sample data
+set.seed(100)
+sDraw <- c()
+for(i in 1:length(tDraw1)){                      #length(tDraw1) is the number of draws
+	x <- sample(tDrawNums, 5, replace = FALSE, prob = tDrawProb)
+	x <- sort(x)
+	x <- list(x)
+	sDraw[i] <- x
+}
+
+#separating sample data
+sDraw <- unlist(sDraw)
+sDraw <- split(sDraw, first5Draws)
+sDraw1 <- sDraw[["Draw.1"]]
+sDraw2 <- sDraw[["Draw.2"]]
+sDraw3 <- sDraw[["Draw.3"]]
+sDraw4 <- sDraw[["Draw.4"]]
+sDraw5 <- sDraw[["Draw.5"]]
+
+#combining all numers in a string
+sDraws <- append(sDraw1, sDraw2)
+sDraws <- append(sDraws, sDraw3)
+sDraws <- append(sDraws, sDraw4)
+sDraws <- append(sDraws, sDraw5)
+
+#analyzing sample data
+plot(sDraws)
+hist(sDraws, breaks = 59)
